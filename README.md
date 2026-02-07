@@ -1,6 +1,6 @@
 # LearnProgress App
 
-LearnProgress is a modern Learning Management System (LMS) designed to track student progress through text-based courses. The project consists of a Flutter mobile application and a Node.js/MongoDB backend.
+The LearnProgress System is a mobile/web-based application designed to help students track, manage, and improve their learning progress efficiently. Its main purpose is to provide a centralized platform where students, teachers, and administrators can interact, monitor tasks, and access learning resources.
 
 ## 🚀 Features
 
