@@ -16,12 +16,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  // Masuuliyiinta xakamaynta qoraalka (Text Editing Controllers)
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    // Waxaan isticmaaleynaa Provider si aan u helno AuthViewModel
+    // Tani waxay noo ogolaaneysaa inaan maamulno xaaladda (State Management)
     final authViewModel = Provider.of<AuthViewModel>(context);
 
     return Scaffold(

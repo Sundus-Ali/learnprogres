@@ -8,6 +8,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Xogta koorsooyinka (Mock Data)
+    // Mustaqbalka xogtan waxaa laga keeni doonaa API-ga backend-ka
     final List<Map<String, dynamic>> courses = [
       {'title': 'Introduction to Flutter', 'progress': 0.75, 'color': Colors.blue},
       {'title': 'Dart Programming', 'progress': 0.40, 'color': Colors.orange},
@@ -22,6 +23,7 @@ class DashboardScreen extends StatelessWidget {
         backgroundColor: AppTheme.charcoalBlue,
         automaticallyImplyLeading: false, // Hide back button
       ),
+      // Liiska koorsooyinka waxaa lagu dhisayaa ListView.builder
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: courses.length,

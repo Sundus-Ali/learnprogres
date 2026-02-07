@@ -5,6 +5,9 @@ import 'package:learnprogres/core/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel extends ChangeNotifier {
+  // -- Somali Comments --
+  // Is-bedelayaasha Xaaladda (State Variables)
+  // _isLoading: Waxay muujineysaa in app-ku mashquul yahay (loading)
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -17,6 +20,7 @@ class AuthViewModel extends ChangeNotifier {
   // -- Somali Comments --
   // Habka gelitaanka (Login function)
   // Waxaan isticmaaleynaa http.post si aan u la xiriirno backend-ka.
+  // Waxaan soo celinaynaa doorka isticmaalaha (User Role) haddii guul la gaaro.
   Future<String?> login(String email, String password) async {
     _isLoading = true;
     notifyListeners();
