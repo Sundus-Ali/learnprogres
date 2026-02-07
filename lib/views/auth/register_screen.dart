@@ -15,6 +15,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String _selectedRole = 'student'; // Default role
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -126,6 +127,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return null;
                   },
                 ),
+                // Role Dropdown
+                DropdownButtonFormField<String>(
+                  value: _selectedRole,
+                  decoration: InputDecoration(
+                    labelText: 'Role',
+                    prefixIcon: const Icon(Icons.work_outline, color: AppTheme.dustyDenim),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                  items: const [
+                    DropdownMenuItem(value: 'student', child: Text('Student')),
+                    DropdownMenuItem(value: 'teacher', child: Text('Teacher')),
+                    DropdownMenuItem(value: 'admin', child: Text('Admin')),
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedRole = value!;
+                    });
+                  },
+                ),
                 const SizedBox(height: 24),
 
                 // Register Button
@@ -138,6 +158,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               _nameController.text,
                               _emailController.text,
                               _passwordController.text,
+                              role: _selectedRole,
                             );
                             if (success && context.mounted) {
                                 // Navigate to Dashboard later, for now back to login

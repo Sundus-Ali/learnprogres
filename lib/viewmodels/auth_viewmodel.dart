@@ -62,7 +62,7 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   // Habka diiwaangelinta (Registration function)
-  Future<bool> register(String name, String email, String password) async {
+  Future<bool> register(String name, String email, String password, {String role = 'student'}) async {
     _isLoading = true;
     notifyListeners();
 
@@ -74,6 +74,7 @@ class AuthViewModel extends ChangeNotifier {
           'name': name,
           'email': email,
           'password': password,
+          'role': role,
         }),
       );
 
