@@ -28,22 +28,34 @@ LearnProgress is a modern Learning Management System (LMS) designed to track stu
 
 ## 📂 Project Structure
 
-```
-learnprogress/
-├── lib/                 # Flutter Code
-│   ├── controllers/     # GetX Business Logic (Maamulka Xogta)
-│   ├── models/          # Data Models (Qaabdhismeedka Xogta)
-│   ├── services/        # API Communication (Xiriirka Server-ka)
-│   ├── views/           # UI Screens (Muuqaalka)
-│   └── main.dart        # Entry Point
-├── server/              # Backend Code
-│   ├── controllers/     # Request Handlers (Maamulka Codsiyada)
-│   ├── models/          # Database Schemas (Shaxda Database-ka)
-│   ├── routes/          # API Endpoints (Wadooyinka API-ga)
-│   ├── config/          # DB Configuration
-│   └── server.js        # Server Entry Point
-```
+```learnprogress/
+├── lib/                 # Flutter mobile application source code
+│   ├── controllers/     # GetX controllers that manage business logic, state updates, and user interactions
+│   ├── models/          # Dart data models representing Users, Courses, Lessons, and Progress objects
+│   ├── services/        # Handles API communication (HTTP requests to the backend server)
+│   ├── views/           # UI screens such as Login, Dashboard, Course Details, Lesson, Progress, and Profile
+│   └── main.dart        # Application entry point that initializes GetX, routes, and theme configuration
+│
+├── server/              # Node.js backend responsible for data processing and storage
+│   ├── controllers/     # Logic that processes incoming requests (authentication, course retrieval, progress updates)
+│   ├── models/          # Mongoose schemas defining how data is structured in MongoDB
+│   ├── routes/          # REST API endpoint definitions that connect URLs to controller functions
+│   ├── config/          # Database connection setup and environment configuration
+│   └── server.js        # Main server file that starts the Express server and registers middleware and routes
 
+
+```
+**Brief Project Documentation**
+
+This project consists of two main components:
+
+Mobile Application:
+This is the application used by students to access learning materials and monitor their progress. The app is built using Flutter, and GetX is used for state management to efficiently handle application data and UI updates.
+
+Server (Backend):
+This is where all data, including user information, courses, lessons, and progress records, is stored and managed. The backend is developed using Node.js with Express, and MongoDB is used as the database.
+
+When a student completes a lesson, the mobile app sends a request to the server (“Mark as Completed”). The server then updates the lesson status and recalculates the overall course progress percentage for that student.
 ## ⚙️ Setup Instructions
 
 ### 1. Backend Setup
@@ -62,18 +74,14 @@ flutter pub get
 flutter run
 ```
 
-## 📝 Somali Documentation (Faahfaahin Kooban)
 
-Mashruucan wuxuu ka kooban yahay labo qeybood oo waaweyn:
-1.  **Mobile App:** Waa appka ardaygu isticmaalayo si uu wax u barto, ugana  warqabo horumarkiisa. Waxaan isticmaalnay **GetX** si aan u maamulno xaaladaha (State Management) si ay u fududaato.
-2.  **Server:** Waa halka xogta (Database) iyo macluumaadka koorsooyinka lagu keydiyo. Waxaan isticmaalnay **Node.js** iyo **MongoDB** oo ah teknooloojiyad casri ah.
-
-Marka ardaygu cashar dhameeyo, app-ku wuxuu u diraa codsi server-ka ("Mark as Done"), server-kuna wuxuu dib u xisaabiyaa wadarta guud ee horumarka koorsada (Course Progress Percentage).
-
----
 **Developed by:** 
 Sundus Ali
-Maida Ahmed
+
+Maida mohamed
+
 Ali Mohamed
+
 Mohamed Dahir
+
 **Date:** Feb 7, 2026
