@@ -1,34 +1,26 @@
 const mongoose = require('mongoose');
 
-const lessonSchema = new mongoose.Schema({
+// Lesson Schema (Structure for individual lessons)
+// Updated for TEXT BASED content (No Video)
+const lessonSchema = mongoose.Schema({
     title: { type: String, required: true },
-    content: { type: String, required: true },
-    videoUrl: { type: String },
-    isCompleted: { type: Boolean, default: false } // Note: In a real app, completion should be stored per user, not in the course itself. 
-    // For this simple uni project, we might just track it locally on phone or create a separate Progress model.
-    // Let's keep it simple: Course defines content. Progress model tracks user completion.
+    content: { type: String, required: true }, // Long form text content
+    duration: { type: String, default: "10 min read" },
+    isCompleted: { type: Boolean, default: false }, // Simple boolean for progress tracking
 });
 
-const courseSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-    },
-    color: {
-        type: String, // Hex string e.g., "0xFF2196F3"
-        default: "0xFF2196F3",
-    },
-    lessons: [lessonSchema],
-    teacher: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-    },
+// Course Schema (Structure for Courses)
+const courseSchema = mongoose.Schema({
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    image: { type: String, required: true }, // URL to image
+    instructor: { type: String, required: true },
+    progress: { type: Number, default: 0 }, // Overall percentage (Calculated)
+    lessons: [lessonSchema], // Array of lessons
 }, {
     timestamps: true,
 });
 
 const Course = mongoose.model('Course', courseSchema);
+
 module.exports = Course;

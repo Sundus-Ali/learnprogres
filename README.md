@@ -1,46 +1,75 @@
-# LearnProgress - Learning Progress Tracking System
+# LearnProgress App
 
-A mobile application designed to help students track their learning progress, view courses, and mark lessons as completed.
+LearnProgress is a modern Learning Management System (LMS) designed to track student progress through text-based courses. The project consists of a Flutter mobile application and a Node.js/MongoDB backend.
 
-## 📱 Features
-- **User Roles**: Student, Teacher, Admin.
-- **Authentication**: Secure Login & Registration (JWT-based).
-- **Dashboard**: View enrolled courses and progress bars.
-- **Lessons**: Watch video lessons and mark them as completed.
-- **Progress**: Visual statistics of your learning journey.
-- **Localization**: Somali documentation comments in the code.
+## 🚀 Features (Astaamaha)
 
-## 🛠 Technology Stack
-- **Frontend**: Flutter (Dart) with Provider State Management.
-- **Backend**: Node.js, Express.js.
-- **Database**: MongoDB.
-- **Architecture**: MVVM (Model-View-ViewModel).
-- **Design**: Charcoal Blue & Dusty Denim theme.
+-   **User Authentication (Diiwaangelinta):** Secure Login and Registration with JWT.
+-   **Course Dashboard (Bogga Hore):** View list of enrolled courses with progress bars.
+-   **Reading Interface (Akhriska):** Clean, academic interface for reading long-form text lessons.
+-   **Progress Tracking (Horumarka):** Mark lessons as completed and see progress update instantly (e.g., 45% -> 50%).
+-   **Profile System (Cududda):** Student profile with stats (GPA, Credits) and settings.
+-   **Backend API:** Robust REST API built with Express.js and MongoDB.
 
-## 🚀 How to Run
+## 🛠️ Technology Stack
 
-### 1. Backend (Node.js)
-The backend manages users and data.
+### Frontend (Mobile App)
+-   **Framework:** Flutter (Dart)
+-   **State Management:** GetX (Simple & Reactive)
+-   **Networking:** http package
+-   **Storage:** shared_preferences
+-   **UI:** Google Fonts, Percent Indicator, Flutter Markdown
+
+### Backend (Server)
+-   **Runtime:** Node.js
+-   **Framework:** Express.js
+-   **Database:** MongoDB (with Mongoose)
+-   **Authentication:** JSON Web Tokens (JWT) & bcryptjs
+
+## 📂 Project Structure
+
+```
+learnprogress/
+├── lib/                 # Flutter Code
+│   ├── controllers/     # GetX Business Logic (Maamulka Xogta)
+│   ├── models/          # Data Models (Qaabdhismeedka Xogta)
+│   ├── services/        # API Communication (Xiriirka Server-ka)
+│   ├── views/           # UI Screens (Muuqaalka)
+│   └── main.dart        # Entry Point
+├── server/              # Backend Code
+│   ├── controllers/     # Request Handlers (Maamulka Codsiyada)
+│   ├── models/          # Database Schemas (Shaxda Database-ka)
+│   ├── routes/          # API Endpoints (Wadooyinka API-ga)
+│   ├── config/          # DB Configuration
+│   └── server.js        # Server Entry Point
+```
+
+## ⚙️ Setup Instructions
+
+### 1. Backend Setup
 ```bash
 cd server
 npm install
-npm start
+# Create .env file with MONGO_URI and JWT_SECRET
+node seeder.js # (Optional) To populate fake data
+node server.js
 ```
-*Server runs on `http://localhost:5000`*
 
-### 2. Frontend (Flutter)
-Ensure you have an emulator running (Android/iOS).
+### 2. Frontend Setup
 ```bash
+# From root directory
 flutter pub get
 flutter run
 ```
 
-## 📂 Project Structure
-- `lib/views/`: UI Screens (Login, Dashboard, etc.)
-- `lib/viewmodels/`: Business Logic (Provider)
-- `lib/services/`: API Calls
-- `lib/models/`: Data Models
-- `server/`: Node.js Backend Code
+## 📝 Somali Documentation (Faahfaahin Kooban)
 
-## 🌍 Deployment
-See [DEPLOYMENT.md](DEPLOYMENT.md) for instructions on how to deploy the backend to Render/Railway and build the Android APK.
+Mashruucan wuxuu ka kooban yahay labo qeybood oo waaweyn:
+1.  **Mobile App:** Waa appka ardaygu isticmaalayo si uu wax u barto, ugana  warqabo horumarkiisa. Waxaan isticmaalnay **GetX** si aan u maamulno xaaladaha (State Management) si ay u fududaato.
+2.  **Server:** Waa halka xogta (Database) iyo macluumaadka koorsooyinka lagu keydiyo. Waxaan isticmaalnay **Node.js** iyo **MongoDB** oo ah teknooloojiyad casri ah.
+
+Marka ardaygu cashar dhameeyo, app-ku wuxuu u diraa codsi server-ka ("Mark as Done"), server-kuna wuxuu dib u xisaabiyaa wadarta guud ee horumarka koorsada (Course Progress Percentage).
+
+---
+**Developed by:** [Your Group Name]
+**Date:** Feb 7, 2026
