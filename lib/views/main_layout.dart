@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learnprogres/core/theme.dart';
 import 'package:learnprogres/views/dashboard/dashboard_screen.dart';
 import 'package:learnprogres/views/progress/progress_screen.dart';
+import 'package:learnprogres/views/profile/profile_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -16,6 +17,7 @@ class _MainLayoutState extends State<MainLayout> {
   final List<Widget> _screens = [
     const DashboardScreen(),
     const ProgressScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -44,6 +46,11 @@ class _MainLayoutState extends State<MainLayout> {
             icon: Icon(Icons.bar_chart_outlined),
             activeIcon: Icon(Icons.bar_chart),
             label: 'Progress',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),
