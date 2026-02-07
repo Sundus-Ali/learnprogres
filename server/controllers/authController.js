@@ -58,4 +58,12 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { authUser, registerUser };
+// @desc    Get all users
+// @route   GET /api/auth/users
+// @access  Admin
+const getUsers = asyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.json(users);
+});
+
+module.exports = { authUser, registerUser, getUsers };

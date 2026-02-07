@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learnprogres/core/theme.dart';
+import 'package:learnprogres/views/dashboard/user_management_screen.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
@@ -48,7 +49,12 @@ class AdminDashboardScreen extends StatelessWidget {
                     title: 'Manage Users',
                     icon: Icons.manage_accounts_outlined,
                     color: Colors.blueGrey,
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const UserManagementScreen()),
+                      );
+                    },
                   ),
                   _buildDashboardCard(
                     context,
