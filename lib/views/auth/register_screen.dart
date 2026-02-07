@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:learnprogres/core/theme.dart';
-import 'package:learnprogres/core/constants.dart';
 import 'package:learnprogres/viewmodels/auth_viewmodel.dart';
-import 'package:learnprogres/views/auth/register_screen.dart';
+import 'package:learnprogres/views/auth/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -23,6 +23,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       backgroundColor: AppTheme.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: AppTheme.charcoalBlue),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24.0),
@@ -32,15 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Logo Section
-                const Icon(
-                  Icons.school, // Placeholder for logo
-                  size: 80,
-                  color: AppTheme.charcoalBlue,
-                ),
-                const SizedBox(height: 16),
                 Text(
-                  AppConstants.appName,
+                  'Create Account',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         color: AppTheme.charcoalBlue,
@@ -49,13 +50,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Welcome back, Student!',
+                  'Join LearnProgress today!',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: AppTheme.dustyDenim,
                       ),
                 ),
                 const SizedBox(height: 32),
+
+                // Name Field
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: 'Full Name',
+                    prefixIcon: const Icon(Icons.person_outline, color: AppTheme.dustyDenim),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: AppTheme.charcoalBlue, width: 2),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
 
                 // Email Field
                 TextFormField(
@@ -104,16 +128,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Login Button
+                // Register Button
                 ElevatedButton(
                   onPressed: authViewModel.isLoading
                       ? null
-                      : () {
+                      : () async {
                           if (_formKey.currentState!.validate()) {
-                            authViewModel.login(
+                            bool success = await authViewModel.register(
+                              _nameController.text,
                               _emailController.text,
                               _passwordController.text,
                             );
+                            if (success && context.mounted) {
+                                // Navigate to Dashboard later, for now back to login
+                                Navigator.pop(context);
+                            }
                           }
                         },
                   style: ElevatedButton.styleFrom(
@@ -130,21 +159,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: CircularProgressIndicator(color: AppTheme.white),
                         )
                       : const Text(
-                          'Login',
+                          'Register',
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                 ),
                 const SizedBox(height: 16),
 
+                // Login Link
                 TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RegisterScreen()),
-                    );
+                    Navigator.pop(context);
                   },
                   child: const Text(
-                    "Don't have an account? Register",
+                    "Already have an account? Login",
                     style: TextStyle(color: AppTheme.dustyDenim),
                   ),
                 ),
