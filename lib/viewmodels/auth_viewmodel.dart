@@ -70,7 +70,7 @@ class AuthViewModel extends ChangeNotifier {
         return null; // Login failed
       }
     } catch (e) {
-      print('Login Error: $e');
+      debugPrint('Login Error: $e');
       _isLoading = false;
       notifyListeners();
       return null;
@@ -104,7 +104,7 @@ class AuthViewModel extends ChangeNotifier {
         return false;
       }
     } catch (e) {
-      print('Register Error: $e');
+      debugPrint('Register Error: $e');
       _isLoading = false;
       notifyListeners();
       return false;

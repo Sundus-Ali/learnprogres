@@ -19,9 +19,15 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppTheme.white,
       appBar: AppBar(
-        title: const Text('My Courses'),
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Welcome Back', style: TextStyle(fontSize: 14, color: Colors.white70)),
+            Text('My Courses', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          ],
+        ),
         backgroundColor: AppTheme.charcoalBlue,
-        automaticallyImplyLeading: false, // Hide back button
+        automaticallyImplyLeading: false, 
       ),
       // Liiska koorsooyinka waxaa lagu dhisayaa ListView.builder
       body: ListView.builder(

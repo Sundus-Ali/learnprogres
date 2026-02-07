@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:learnprogres/core/theme.dart';
 import 'package:learnprogres/viewmodels/auth_viewmodel.dart';
-//import 'package:learnprogres/views/auth/login_screen.dart';
+import 'package:learnprogres/viewmodels/auth_viewmodel.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -45,17 +45,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   'Create Account',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                        color: AppTheme.charcoalBlue,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    color: AppTheme.charcoalBlue,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   'Join LearnProgress today!',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: AppTheme.dustyDenim,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(color: AppTheme.dustyDenim),
                 ),
                 const SizedBox(height: 32),
 
@@ -64,13 +64,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _nameController,
                   decoration: InputDecoration(
                     labelText: 'Full Name',
-                    prefixIcon: const Icon(Icons.person_outline, color: AppTheme.dustyDenim),
+                    prefixIcon: const Icon(
+                      Icons.person_outline,
+                      color: AppTheme.dustyDenim,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppTheme.charcoalBlue, width: 2),
+                      borderSide: const BorderSide(
+                        color: AppTheme.charcoalBlue,
+                        width: 2,
+                      ),
                     ),
                   ),
                   validator: (value) {
@@ -87,13 +93,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
-                    prefixIcon: const Icon(Icons.email_outlined, color: AppTheme.dustyDenim),
+                    prefixIcon: const Icon(
+                      Icons.email_outlined,
+                      color: AppTheme.dustyDenim,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppTheme.charcoalBlue, width: 2),
+                      borderSide: const BorderSide(
+                        color: AppTheme.charcoalBlue,
+                        width: 2,
+                      ),
                     ),
                   ),
                   validator: (value) {
@@ -111,13 +123,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    prefixIcon: const Icon(Icons.lock_outline, color: AppTheme.dustyDenim),
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: AppTheme.dustyDenim,
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
-                      borderSide: const BorderSide(color: AppTheme.charcoalBlue, width: 2),
+                      borderSide: const BorderSide(
+                        color: AppTheme.charcoalBlue,
+                        width: 2,
+                      ),
                     ),
                   ),
                   validator: (value) {
@@ -132,8 +150,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   value: _selectedRole,
                   decoration: InputDecoration(
                     labelText: 'Role',
-                    prefixIcon: const Icon(Icons.work_outline, color: AppTheme.dustyDenim),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    prefixIcon: const Icon(
+                      Icons.work_outline,
+                      color: AppTheme.dustyDenim,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
                   items: const [
                     DropdownMenuItem(value: 'student', child: Text('Student')),
@@ -161,8 +184,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               role: _selectedRole,
                             );
                             if (success && context.mounted) {
-                                // Navigate to Dashboard later, for now back to login
-                                Navigator.pop(context);
+                              // Navigate to Dashboard later, for now back to login
+                              Navigator.pop(context);
                             }
                           }
                         },
@@ -177,11 +200,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ? const SizedBox(
                           height: 20,
                           width: 20,
-                          child: CircularProgressIndicator(color: AppTheme.white),
+                          child: CircularProgressIndicator(
+                            color: AppTheme.white,
+                          ),
                         )
                       : const Text(
                           'Register',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                 ),
                 const SizedBox(height: 16),
