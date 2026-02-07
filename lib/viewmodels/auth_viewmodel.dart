@@ -17,6 +17,22 @@ class AuthViewModel extends ChangeNotifier {
   String _userRole = 'student';
   String get userRole => _userRole;
 
+  bool _isLoggedIn = false;
+  bool get isLoggedIn => _isLoggedIn;
+
+  // Check if user is already logged in
+  Future<void> checkLoginStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final role = prefs.getString('role');
+
+    if (token != null && role != null) {
+      _token = token;
+      _userRole = role;
+      _isLoggedIn = true;
+      notifyListeners();
+    }
+  }
 
   // Habka gelitaanka (Login function)
   // Waxaan isticmaaleynaa http.post si aan u la xiriirno backend-ka.
