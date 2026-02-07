@@ -6,8 +6,8 @@ class AuthViewModel extends ChangeNotifier {
 
   // -- Somali Comments --
   // Habka gelitaanka (Login function)
-  // Halkan waxaa lagu maamulayaa xaaladda loading-ka iyo wicitaanka API-ga.
-  Future<bool> login(String email, String password) async {
+  // Returns user role: 'student', 'teacher', or 'admin'
+  Future<String?> login(String email, String password) async {
     _isLoading = true;
     notifyListeners();
 
@@ -16,7 +16,15 @@ class AuthViewModel extends ChangeNotifier {
 
     _isLoading = false;
     notifyListeners();
-    return true; // Mock success
+    
+    // Mock Role Logic based on email
+    if (email.contains('admin')) {
+      return 'admin';
+    } else if (email.contains('teacher')) {
+      return 'teacher';
+    } else {
+      return 'student';
+    }
   }
 
   // Habka diiwaangelinta (Registration function)

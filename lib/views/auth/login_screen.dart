@@ -5,6 +5,8 @@ import 'package:learnprogres/core/constants.dart';
 import 'package:learnprogres/viewmodels/auth_viewmodel.dart';
 import 'package:learnprogres/views/auth/register_screen.dart';
 import 'package:learnprogres/views/main_layout.dart';
+import 'package:learnprogres/views/dashboard/teacher_dashboard_screen.dart';
+import 'package:learnprogres/views/dashboard/admin_dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -114,11 +116,27 @@ class _LoginScreenState extends State<LoginScreen> {
                             authViewModel.login(
                               _emailController.text,
                               _passwordController.text,
-                            ).then((success) {
-                              if (success && context.mounted) {
+                            ).then((role) {
+                              if (!context.mounted) return;
+
+                              if (role == 'student') {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(builder: (context) => const MainLayout()),
+                                );
+                              } else if (role == 'teacher') {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const TeacherDashboardScreen()),
+                                );
+                              } else if (role == 'admin') {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const AdminDashboardScreen()),
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Login Failed')),
                                 );
                               }
                             });
