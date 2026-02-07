@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:learnprogres/core/theme.dart';
 
 class LessonScreen extends StatefulWidget {
