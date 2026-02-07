@@ -1,29 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:learnprogres/core/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  String? _token;
+  String? get token => _token;
+
+  String _userRole = 'student';
+  String get userRole => _userRole;
+
   // -- Somali Comments --
   // Habka gelitaanka (Login function)
-  // Returns user role: 'student', 'teacher', or 'admin'
+  // Waxaan isticmaaleynaa http.post si aan u la xiriirno backend-ka.
   Future<String?> login(String email, String password) async {
     _isLoading = true;
     notifyListeners();
 
-    // TODO: Connect to Real Backend later
-    await Future.delayed(const Duration(seconds: 2)); // Simulating network delay
+    try {
+      final response = await http.post(
+        Uri.parse('${AppConstants.apiBaseUrl}/auth/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': email,
+          'password': password,
+        }),
+      );
 
-    _isLoading = false;
-    notifyListeners();
-    
-    // Mock Role Logic based on email
-    if (email.contains('admin')) {
-      return 'admin';
-    } else if (email.contains('teacher')) {
-      return 'teacher';
-    } else {
-      return 'student';
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        _token = data['token'];
+        _userRole = data['role'];
+        
+        // Save token locally
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('token', _token!);
+        await prefs.setString('role', _userRole);
+
+        _isLoading = false;
+        notifyListeners();
+        return _userRole;
+      } else {
+        _isLoading = false;
+        notifyListeners();
+        return null; // Login failed
+      }
+    } catch (e) {
+      print('Login Error: $e');
+      _isLoading = false;
+      notifyListeners();
+      return null;
     }
   }
 
@@ -32,10 +62,32 @@ class AuthViewModel extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    await Future.delayed(const Duration(seconds: 2));
+    try {
+      final response = await http.post(
+        Uri.parse('${AppConstants.apiBaseUrl}/auth/register'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'name': name,
+          'email': email,
+          'password': password,
+        }),
+      );
 
-    _isLoading = false;
-    notifyListeners();
-    return true;
+      if (response.statusCode == 201) {
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      } else {
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+    } catch (e) {
+      print('Register Error: $e');
+      _isLoading = false;
+      notifyListeners();
+      return false;
+    }
   }
 }
+
