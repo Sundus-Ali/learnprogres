@@ -3,8 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Colors
-  static const Color charcoalBlue = Color(0xFF2C3E50); // Primary
-  static const Color dustyDenim = Color(0xFF5D8AA8); // Secondary
+  static const Color charcoalBlue = Colors.blue; // Primary (Blue)
+  static const Color dustyDenim = Colors.green; // Secondary (Green)
   static const Color white = Colors.white;
   static const Color black = Colors.black;
 

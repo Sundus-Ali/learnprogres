@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:learnprogres/core/theme.dart';
 import 'package:learnprogres/viewmodels/auth_viewmodel.dart';
+import 'package:learnprogres/viewmodels/course_viewmodel.dart';
 import 'package:learnprogres/views/auth/login_screen.dart';
 import 'package:learnprogres/views/main_layout.dart';
 import 'package:learnprogres/views/dashboard/teacher_dashboard_screen.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => CourseViewModel()),
       ],
       child: MaterialApp(
         title: 'LearnProgress',
