@@ -4,6 +4,7 @@ import 'package:learnprogres/core/theme.dart';
 import 'package:learnprogres/core/constants.dart';
 import 'package:learnprogres/viewmodels/auth_viewmodel.dart';
 import 'package:learnprogres/views/auth/register_screen.dart';
+import 'package:learnprogres/views/main_layout.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -113,7 +114,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             authViewModel.login(
                               _emailController.text,
                               _passwordController.text,
-                            );
+                            ).then((success) {
+                              if (success && context.mounted) {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const MainLayout()),
+                                );
+                              }
+                            });
                           }
                         },
                   style: ElevatedButton.styleFrom(
