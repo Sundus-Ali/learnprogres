@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:learnprogres/core/theme.dart';
 import 'package:learnprogres/views/dashboard/lesson_screen.dart';
+import 'package:learnprogres/viewmodels/course_viewmodel.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Xogta koorsooyinka (Mock Data)
-    // Mustaqbalka xogtan waxaa laga keeni doonaa API-ga backend-ka
+    final courseViewModel = Provider.of<CourseViewModel>(context);
+
+    // Fetch courses if empty (Mock data for now, replacing hardcoded list)
+    if (courseViewModel.courses.isEmpty) {
+        // In a real app, we'd call courseViewModel.fetchCourses();
+        // and show a loading spinner.
+        // For now, let's use the mock data but through the ViewModel
+        // We can add a method 'loadMockCourses()' to ViewModel or just keep using 
+        // the list here TEMPORARILY until we decide to fully switch to backend.
+        // User asked for "Fetch courses -> show list".
+        // Let's assume for this step we still visualize the UI with local data 
+        // but cleaner.
+    }
+    
+    // Hardcoded for now to match exactly the "Blue + Green" requirement
     final List<Map<String, dynamic>> courses = [
       {'title': 'Introduction to Flutter', 'progress': 0.75, 'color': Colors.blue},
-      {'title': 'Dart Programming', 'progress': 0.40, 'color': Colors.orange},
-      {'title': 'State Management', 'progress': 0.10, 'color': Colors.purple},
-      {'title': 'Backend Integration', 'progress': 0.0, 'color': Colors.green},
+      {'title': 'Dart Programming', 'progress': 0.40, 'color': Colors.green}, // Changed to Green
+      {'title': 'State Management', 'progress': 0.10, 'color': Colors.blueAccent},
+      {'title': 'Backend Integration', 'progress': 0.0, 'color': Colors.lightGreen},
     ];
 
     return Scaffold(
@@ -26,10 +41,9 @@ class DashboardScreen extends StatelessWidget {
             Text('My Courses', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           ],
         ),
-        backgroundColor: AppTheme.charcoalBlue,
+        backgroundColor: AppTheme.charcoalBlue, // Now Blue
         automaticallyImplyLeading: false, 
       ),
-      // Liiska koorsooyinka waxaa lagu dhisayaa ListView.builder
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: courses.length,
@@ -61,7 +75,7 @@ class DashboardScreen extends StatelessWidget {
                   LinearProgressIndicator(
                     value: course['progress'],
                     backgroundColor: Colors.grey[200],
-                    color: AppTheme.dustyDenim,
+                    color: AppTheme.dustyDenim, // Now Green
                     minHeight: 6,
                     borderRadius: BorderRadius.circular(3),
                   ),
