@@ -2,7 +2,7 @@
 
 LearnProgress is a modern Learning Management System (LMS) designed to track student progress through text-based courses. The project consists of a Flutter mobile application and a Node.js/MongoDB backend.
 
-## 🚀 Features (Astaamaha)
+## 🚀 Features
 
 -   **User Authentication (Diiwaangelinta):** Secure Login and Registration with JWT.
 -   **Course Dashboard (Bogga Hore):** View list of enrolled courses with progress bars.
@@ -71,5 +71,9 @@ Mashruucan wuxuu ka kooban yahay labo qeybood oo waaweyn:
 Marka ardaygu cashar dhameeyo, app-ku wuxuu u diraa codsi server-ka ("Mark as Done"), server-kuna wuxuu dib u xisaabiyaa wadarta guud ee horumarka koorsada (Course Progress Percentage).
 
 ---
-**Developed by:** [Your Group Name]
+**Developed by:** 
+Sundus Ali
+Maida Ahmed
+Ali Mohamed
+Mohamed Dahir
 **Date:** Feb 7, 2026

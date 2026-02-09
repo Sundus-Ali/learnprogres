@@ -7,6 +7,7 @@ import '../../controllers/course_controller.dart';
 import './course_detail_screen.dart';
 import '../../core/app_colors.dart';
 import '../../models/course_model.dart';
+//import '../../models/course_model.dart';
 
 class HomeScreen extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();

@@ -6,8 +6,10 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../controllers/auth_controller.dart';
 import '../../controllers/course_controller.dart';
 import '../../controllers/main_controller.dart';
+import './course_detail_screen.dart';
 import '../../core/app_colors.dart';
 import '../../models/course_model.dart';
+import 'home_screen.dart'; // To use CourseCard style if needed or navigate
 
 class ProgressScreen extends StatelessWidget {
   final AuthController authController = Get.find<AuthController>();
@@ -60,84 +62,102 @@ class ProgressScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            // 1. Main Summary Card
-            Container(
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 20, offset: const Offset(0, 5)),
-                ],
-              ),
-              child: Column(
-                children: [
-                  CircularPercentIndicator(
-                    radius: 70.0,
-                    lineWidth: 12.0,
-                    percent: overallProgress,
-                    center: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "$percentage%",
-                          style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 32),
-                        ),
-                        Text("OVERALL", style: GoogleFonts.montserrat(fontSize: 10, color: Colors.grey, fontWeight: FontWeight.bold)),
-                      ],
+            // 1. Main Summary Card (Clickable)
+            GestureDetector(
+              onTap: () => _showSemesterSummary(context, percentage),
+              child: Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 20, offset: const Offset(0, 5)),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    CircularPercentIndicator(
+                      radius: 70.0,
+                      lineWidth: 12.0,
+                      percent: overallProgress,
+                      center: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "$percentage%",
+                            style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 32),
+                          ),
+                          Text("OVERALL", style: GoogleFonts.montserrat(fontSize: 10, color: Colors.grey, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      progressColor: AppColors.primary,
+                      backgroundColor: const Color(0xFFE0E0E0),
+                      circularStrokeCap: CircularStrokeCap.round,
+                      animation: true,
                     ),
-                    progressColor: AppColors.primary,
-                    backgroundColor: const Color(0xFFE0E0E0),
-                    circularStrokeCap: CircularStrokeCap.round,
-                    animation: true,
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    "Great progress, ${authController.userName.value.split(' ')[0]}!",
-                    style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "You've completed $completedLessons out of $totalLessons lessons this semester.",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.montserrat(color: Colors.grey, fontSize: 13, height: 1.5),
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _StatBox(
-                          value: "12",
-                          label: "HOURS SPENT",
-                          bgColor: const Color(0xFFEDF2FF), // Light Blue
-                          textColor: AppColors.primary,
+                    const SizedBox(height: 20),
+                    Text(
+                      "Great progress, ${authController.userName.value.split(' ')[0]}!",
+                      style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 18),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "You've completed $completedLessons out of $totalLessons lessons this semester.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(color: Colors.grey, fontSize: 13, height: 1.5),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => _showHoursDetail(context),
+                            child: _StatBox(
+                              value: "12",
+                              label: "HOURS SPENT",
+                              bgColor: const Color(0xFFEDF2FF), // Light Blue
+                              textColor: AppColors.primary,
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: _StatBox(
-                          value: "92%",
-                          label: "AVG. SCORE",
-                          bgColor: const Color(0xFFE8F5E9), // Light Green
-                          textColor: Colors.green,
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => _showScoreDetail(context),
+                            child: _StatBox(
+                              value: "92%",
+                              label: "AVG. SCORE",
+                              bgColor: const Color(0xFFE8F5E9), // Light Green
+                              textColor: Colors.green,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
 
             const SizedBox(height: 24),
 
-            // 2. Stats Row (Total, Done, Left)
+            // 2. Stats Row (Total, Done, Left) - Make Clickable
             Row(
               children: [
-                Expanded(child: _SmallStatCard(icon: Icons.menu_book, color: Colors.blue, label: "TOTAL", value: "$totalLessons", sub: "Total Lessons")),
+                Expanded(child: GestureDetector(
+                  onTap: () => Get.snackbar("Total Lessons", "You have $totalLessons lessons across all courses."),
+                  child: _SmallStatCard(icon: Icons.menu_book, color: Colors.blue, label: "TOTAL", value: "$totalLessons", sub: "Total Lessons")
+                )),
                 const SizedBox(width: 12),
-                Expanded(child: _SmallStatCard(icon: Icons.check_circle, color: Colors.green, label: "DONE", value: "$completedLessons", sub: "Lessons Finished")),
+                Expanded(child: GestureDetector(
+                  onTap: () => Get.snackbar("Completed", "You finished $completedLessons lessons!"),
+                  child: _SmallStatCard(icon: Icons.check_circle, color: Colors.green, label: "DONE", value: "$completedLessons", sub: "Lessons Finished")
+                )),
                 const SizedBox(width: 12),
-                Expanded(child: _SmallStatCard(icon: Icons.pending, color: Colors.orange, label: "LEFT", value: "${totalLessons - completedLessons}", sub: "Remaining")),
+                Expanded(child: GestureDetector(
+                  onTap: () => Get.snackbar("Remaining", "You have ${totalLessons - completedLessons} lessons left to do."),
+                  child: _SmallStatCard(icon: Icons.pending, color: Colors.orange, label: "LEFT", value: "${totalLessons - completedLessons}", sub: "Remaining")
+                )),
               ],
             ),
 
@@ -148,19 +168,25 @@ class ProgressScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Subject Breakdown", style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 18)),
-                Text("View All", style: GoogleFonts.montserrat(color: AppColors.primary, fontWeight: FontWeight.bold)),
+                TextButton(
+                  onPressed: () => Get.find<MainController>().changeTabIndex(0), // Go to home to see all
+                  child: Text("View All", style: GoogleFonts.montserrat(color: AppColors.primary, fontWeight: FontWeight.bold)),
+                ),
               ],
             ),
             const SizedBox(height: 16),
 
-            // 4. Subject List
+            // 4. Subject List (Clickable -> Go to Course Detail)
             Obx(() => ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: courseController.courses.length,
               itemBuilder: (context, index) {
                 final course = courseController.courses[index];
-                return _SubjectCard(course: course, index: index);
+                return GestureDetector(
+                  onTap: () => Get.to(() => CourseDetailScreen(course: course)),
+                  child: _SubjectCard(course: course, index: index),
+                );
               },
             )),
 
@@ -172,16 +198,68 @@ class ProgressScreen extends StatelessWidget {
               child: Text("Study Activity", style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 18)),
             ),
             const SizedBox(height: 16),
-            Container(
-              height: 150,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
-              child: Center(
-                child: Text("Graph Placeholder (Use fl_chart for real graph)", style: TextStyle(color: Colors.grey)),
+            GestureDetector(
+              onTap: () => Get.snackbar("Study Graph", "Imagine a beautiful line chart here showing your activity!"),
+              child: Container(
+                height: 150,
+                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
+                child: Center(
+                  child: Text("Graph Placeholder (Click Me)", style: TextStyle(color: Colors.grey)),
+                ),
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
+    );
+  }
+
+  // --- DIALOGS ---
+
+  void _showSemesterSummary(BuildContext context, int percentage) {
+    Get.defaultDialog(
+      title: "Semester Summary",
+      content: Column(
+        children: [
+          const Icon(Icons.pie_chart, size: 60, color: AppColors.primary),
+          const SizedBox(height: 10),
+          Text("You have completed $percentage% of your semester goals.", textAlign: TextAlign.center),
+          const SizedBox(height: 10),
+          const Text("Keep pushing!", style: TextStyle(fontWeight: FontWeight.bold)),
+        ],
+      ),
+      textConfirm: "OK",
+      confirmTextColor: Colors.white,
+      onConfirm: () => Get.back(),
+    );
+  }
+
+  void _showHoursDetail(BuildContext context) {
+    Get.bottomSheet(
+      Container(
+        height: 200,
+        color: Colors.white,
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+             Text("Time Spent Breakdown", style: GoogleFonts.montserrat(fontWeight: FontWeight.bold, fontSize: 18)),
+             const Divider(),
+             const ListTile(title: Text("Reading"), trailing: Text("8h 30m")),
+             const ListTile(title: Text("Quizzes"), trailing: Text("3h 30m")),
+          ],
+        ),
+      )
+    );
+  }
+
+  void _showScoreDetail(BuildContext context) {
+     Get.defaultDialog(
+      title: "Average Score",
+      content: const Text("Based on your quiz results, your average score is maintaining an 'A' grade level."),
+      textConfirm: "Nice!",
+      confirmTextColor: Colors.white,
+      onConfirm: () => Get.back(),
     );
   }
 }
